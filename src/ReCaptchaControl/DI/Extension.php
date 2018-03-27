@@ -37,6 +37,8 @@ class Extension extends CompilerExtension
 		'secretKey' => null,
 		'methodName' => 'addReCaptcha',
 		'requester' => CurlRequester::class,
+		'validator' => Validator::class,
+		'renderer' => Renderer::class
 	];
 
 	/** @var string */
@@ -53,6 +55,8 @@ class Extension extends CompilerExtension
 		Validators::assertField($config, 'secretKey', 'string');
 		Validators::assertField($config, 'methodName', 'string');
 		Validators::assertField($config, 'requester', 'string');
+		Validators::assertField($config, 'validator', 'string');
+		Validators::assertField($config, 'renderer', 'string');
 
 		$builder->addDefinition($this->prefix('requestDataProvider'))
 				->setClass(RequestDataProvider::class);
@@ -68,10 +72,10 @@ class Extension extends CompilerExtension
 		}
 
 		$builder->addDefinition($this->prefix('validator'))
-				->setClass(Validator::class, ['@' . IRequestDataProvider::class, $requesterService, $config['secretKey']]);
+			->setClass($config['validator'], ['@' . IRequestDataProvider::class, $requesterService, $config['secretKey']]);
 
 		$builder->addDefinition($this->prefix('renderer'))
-				->setClass(Renderer::class, [$config['siteKey']]);
+			->setClass($config['renderer'], [$config['siteKey']]);
 	}
 
 
