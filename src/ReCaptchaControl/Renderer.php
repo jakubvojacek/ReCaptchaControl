@@ -26,6 +26,10 @@ class Renderer
 		$this->siteKey = $siteKey;
 	}
 
+	public function setSiteKey(string $key)
+	{
+		$this->siteKey = $key;
+	}
 
 	/** @return Utils\Html */
 	public function getHtml()

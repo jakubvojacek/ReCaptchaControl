@@ -43,6 +43,10 @@ class Validator
 		$this->requestDataProvider = $requestDataProvider;
 	}
 
+	protected function setSecretKey(string $key)
+	{
+		$this->secretKey = $key;
+	}
 
 	/** @return bool */
 	public function validate()
